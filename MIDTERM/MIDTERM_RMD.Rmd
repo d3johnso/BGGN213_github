@@ -1,0 +1,87 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q7 HEATMAP
+
+#load bio3d package
+```{r}
+library(bio3d)
+```
+
+#Use Read.fasta to make alignment in bio3d
+
+```{r}
+ETO_aligned <- read.fasta("Aligned Fasta Midterm.txt", rm.dup = FALSE, to.upper = FALSE, to.dash=TRUE)
+print(ETO_aligned)
+```
+
+#Calculate a sequence identity matrix using seqidentity
+```{r}
+seq_ID <- seqidentity(ETO_aligned, normalize=TRUE, similarity=FALSE)
+print(seq_ID)
+```
+
+#Generate Heatmap, change margins etc...
+```{r}
+heatmap(seq_ID, margins = c(12,3), cexRow = 1.3, cexCol = 1.3,)
+```
+
+#Generate Consensus Protein Sequence using bio3d
+```{r}
+ETO_Consensus <- consensus(ETO_aligned,0.6)
+print(ETO_Consensus)
+```
+
+#Make a Consensus FASTA FILE "ETO_Consensus_fasta.txt"
+```{r}
+write.fasta(alignment=NULL, ids=NULL, seqs=ETO_Consensus$seq, "ETO_Consensus_fasta.txt", append = FALSE)
+```
+
+
+#Blast Consensus using PDB
+```{r}
+Consensus_Blast <- blast.pdb(ETO_Consensus$seq, database = "pdb", time.out = NULL, chain.single=TRUE)
+
+```
+#Plot Blast Results
+
+```{r}
+plot.blast(Consensus_Blast)
+```
+
+#TOP 3 Results
+```{r}
+print(Consensus_Blast)
+```
+
+#Annotate the Top Results
+```{r}
+print(Consensus_Blast$raw$subjectids)
+Consensus_annotated <- pdb.annotate(Consensus_Blast$raw$subjectids,anno.terms = NULL ,unique = TRUE, verbose = FALSE)
+print(Consensus_annotated)
+```
+#I cant see source, so just want to look at it
+```{r}
+source_view <- pdb.annotate(Consensus_Blast$raw$subjectids,anno.terms = "source" ,unique = TRUE, verbose = FALSE)
+print(source)
+```
+
+#Build The Table using data.entry, limit to top 3 entries
+```{r}
+Hit_Rank <- c(1,2,3)
+Structure_Id <- Consensus_annotated$structureId[1:3]
+Sequence_Identity <- Consensus_Blast$raw$identity[1:3]
+E_Value <- Consensus_Blast$raw$evalue[1:3]
+Experimental_Technique <- Consensus_annotated$experimentalTechnique[1:3]
+Resolution <- Consensus_annotated$resolution[1:3]
+Source <- Consensus_annotated$source[1:3]
+data.entry(Hit_Rank, Structure_Id, Sequence_Identity, E_Value, Experimental_Technique, Resolution, Source)
+
+```
+

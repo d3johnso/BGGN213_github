@@ -1,0 +1,106 @@
+---
+title: "HW6 Daniel Johnson"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#This is the orignial code to modify (corrected copy/paste error)
+```{r}
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor") 
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor") 
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+#Sample PDB_ID list (Vector) of orignial 3 proteins + load bio3d
+
+```{r}
+library(bio3d)
+protein_list <- c("4AKE","1AKE","1E4Y")
+print(protein_list)
+```
+
+#lapply read.pdb to the Sample Vector of PDB_IDs
+
+```{r}
+lapply(protein_list, read.pdb) 
+
+```
+
+#Trim the "lapply" pdb_list (applied_list) to "A" chain, "CA" Electy
+#```{r}
+applied_list <- lapply(protein_list, read.pdb) 
+trim.pdb(applied_list, chain="A", elety="CA")
+
+# error: input 'pdb' must be a PDB list object as returned from 'read.pdb' --> Must directly run trim after loading pdb file, then repeat on next sample? 
+
+#Test function in a function (trim(read))) 
+
+```{r}
+
+trimmed <- trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")
+print(trimmed)
+print(read.pdb("4AKE"))
+```
+
+#It worked... test selecting atom & b from the function...
+
+```{r}
+trimmed <- trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")
+trimmed$atom$b
+trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")$atom$b
+```
+
+#Try plotting directly single works
+
+```{r}
+to_plot <- trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")$atom$b
+plotb3(trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")$atom$b, sse = trim.pdb(read.pdb("4AKE"), chain="A", elety="CA"), typ="l", ylab="Bfactor") 
+
+
+
+```
+
+#Now try with a vector list! (protein_list)
+```{r}
+plotb3(trim.pdb(read.pdb("4AKE"), chain="A", elety="CA")$atom$b, sse = trim.pdb(read.pdb("4AKE"), chain="A", elety="CA"), typ="l", ylab="Bfactor") 
+
+```
+
+#lets make one big ass function (single)
+
+```{r}
+plot_kinase_druggable <- function(x) {
+plotb3(trim.pdb(read.pdb(x), chain="A", elety="CA")$atom$b, sse = trim.pdb(read.pdb(x), chain="A", elety="CA"), typ="l", ylab="Bfactor", main = x)  
+}
+
+plot_kinase_druggable("4ake")
+```
+
+
+#Big Function with Vector as input
+```{r}
+plot_kinase_druggable(protein_list)
+```
+#error again, may need to apply funtion to my vector
+
+```{r}
+lapply(protein_list,plot_kinase_druggable)
+```
+

@@ -1,0 +1,36 @@
+---
+title: "class14rmd"
+author: "Daniel Johnson"
+date: "5/17/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+
+```{r}
+install.packages("BiocManager")
+BiocManager::install()
+
+# For this class, you'll also need DESeq2:
+BiocManager::install("DESeq2")
+```
+
+```{r}
+counts <- read.csv("airway_scaledcounts.csv", stringsAsFactors = FALSE)
+metadata <-  read.csv("airway_metadata.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+head(counts)
+```
+
+```{r}
+head(metadata)
+```
+

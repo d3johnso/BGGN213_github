@@ -1,0 +1,246 @@
+---
+title: 'Class_08: Machine Learning'
+author: "Daniel Johnson"
+date: "4/26/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Kmeans Clustering
+
+```{r}
+# Generate some example data for clustering
+tmp <- c(rnorm(30,-3), rnorm(30,3))
+x <- cbind(x=tmp, y=rev(tmp))
+
+plot(x)
+
+
+
+```
+
+Use the kmeans() function setting k to 2 and nstart=20 
+
+Inspect/print the results 
+
+Q. How many points are in each cluster?
+Q. What ‘component’ of your result object details 
+      - cluster size?
+      - cluster assignment/membership? 
+      - cluster center?
+
+Plot x colored by the kmeans cluster assignment and 
+      add cluster centers as blue points
+      
+```{r}
+
+k <- kmeans(x,2,50)
+print(k)
+
+plot(k)
+
+```
+
+```{r}
+k$cluster
+table(k$cluster)
+
+```
+
+```{r}
+k$centers
+```
+
+```{r}
+plot(x, col= k$cluster) 
+points(k$center, col= "blue", pch=18, cex=2)
+
+
+
+```
+
+```{r}
+# Generate some example data for clustering
+tmp <- c(rnorm(30,-3), rnorm(30,3))
+x <- cbind(x=tmp, y=rev(tmp))
+
+#kmeans
+k <- kmeans(x,6,1000000000)
+#plot K-means
+plot(x, col= k$cluster) 
+points(k$center, col= "blue", pch=18, cex=2)
+
+
+```
+
+##HIERARCHIAL CLUSTERING
+
+```{r}
+hc <- hclust( dist(x))
+hc
+```
+
+#Lets plot hclust results
+
+```{r}
+plot(hc)
+```
+
+```{r}
+plot(hc)
+abline(h=6, col="red")
+cutree(hc, h=6)
+```
+```{r}
+gp2 = cutree(hc, k=2)
+gp3 = cutree(hc, k=3)
+table(gp2)
+table(gp3)
+table(gp2,gp3)
+```
+
+
+# Step 1. Generate some example data for clustering
+x <- rbind(
+  matrix(rnorm(100, mean=0, sd = 0.3), ncol = 2),   # c1
+  matrix(rnorm(100, mean = 1, sd = 0.3), ncol = 2), # c2
+  matrix(c(rnorm(50, mean = 1, sd = 0.3),           # c3
+           rnorm(50, mean = 0, sd = 0.3)), ncol = 2))
+colnames(x) <- c("x", "y")
+
+```{r}
+# Step 1. Generate some example data for clustering
+x <- rbind(
+  matrix(rnorm(100, mean=0, sd = 0.3), ncol = 2),   # c1
+  matrix(rnorm(100, mean = 1, sd = 0.3), ncol = 2), # c2
+  matrix(c(rnorm(50, mean = 1, sd = 0.3),           # c3
+           rnorm(50, mean = 0, sd = 0.3)), ncol = 2))
+colnames(x) <- c("x", "y")
+```
+
+
+```{r}
+# Step 2. Plot the data without clustering
+plot(x)
+# Step 3. Generate colors for known clusters 
+#         (just so we can compare to hclust results)
+col <- as.factor( rep(c("c1","c2","c3"), each=50) ) 
+plot(x, col=col)
+```
+Your Turn!
+
+Q. Use the dist(), hclust(), plot() and cutree()
+      functions to return 2 and 3 clusters 
+```{r}
+hc_new <- hclust(dist(x))
+plot(hc_new)
+cutree(hc_new, k = 2)
+plot(x, col= k$cluster) 
+points(k$center, col= "blue", pch=18, cex=2)
+cutree(hc_new, k =3)
+plot(x, col= k$cluster) 
+points(k$center, col= "blue", pch=18, cex=2)
+
+plot(cutree(hc_new, k = 2))
+plot(cutree(hc_new, k = 3))
+
+```
+
+      
+      
+      
+Q. How does this compare to your known 'col' groups?
+
+
+
+##PCA 
+
+```{r}
+mydata <- read.csv("https://tinyurl.com/expression-CSV", 
+                   row.names=1) 
+head(mydata)
+```
+
+```{r}
+pca <- prcomp( t(mydata), scale=TRUE)
+summary(pca)
+```
+
+
+
+```{r}
+pca.var <- pca$sdev^2
+pca.var.per <- round(pca.var/sum(pca.var)*100, 1)
+plot(pca.var.per)
+```
+
+```{r}
+plot(pca)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#load UK data, analyze its dimensions 
+```{r}
+x <- read.csv("UK_foods.csv")
+dim(x)
+```
+
+```{r}
+head(x)
+tail(x)
+#view(X)
+```
+
+```{r}
+# Note how the minus indexing works
+rownames(x) <- x[,1]
+head(x)
+x <- x[,-1]
+head(x)
+```
+
+```{r}
+x <- read.csv("UK_foods.csv", row.names=1)
+head(x)
+```
+
+```{r}
+barplot(as.matrix(x), beside=T, col=rainbow(nrow(x)))
+barplot(as.matrix(x), beside=F, col=rainbow(nrow(x)))
+pairs(x, col=rainbow(10), pch=16)
+```
+
+#PCA of UK Data
+
+```{r}
+# Use the prcomp() PCA function 
+pca <- prcomp( t(x) )
+summary(pca)
+```
+
+
+
+
+
+
+
+
+
+

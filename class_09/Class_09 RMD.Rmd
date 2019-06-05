@@ -1,0 +1,167 @@
+---
+title: "class_09"
+author: "Daniel Johnson"
+date: "5/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Class 09 Worksheet
+```{r}
+wisc.df <- read.csv("WisconsinCancer.csv")
+
+
+```
+
+read.csv(WisconsinCancer.csv)
+```{r}
+table(wisc.df$diagnosis)
+```
+
+#4 Get the column names that I need to check
+```{r}
+wisc.titles <- colnames(wisc.df)
+```
+
+
+```{r}
+grep("_mean", wisc.titles, )
+```
+
+```{r}
+length(grep("_mean", wisc.titles))
+```
+
+```{r}
+wisc.data <- as.matrix(wisc.df [,3:32])
+row.names(wisc.data) <-  wisc.df$id
+head(wisc.data)
+tail(wisc.data)
+
+```
+
+```{r}
+diagnosis <- wisc.df$diagnosis
+print(diagnosis)
+```
+
+```{r}
+colmean.wisc <- colMeans(wisc.data)
+round(colmean.wisc, digits = 2)
+```
+
+```{r}
+wisc.pr <- prcomp(wisc.data, scale. = T)
+summary(wisc.pr)
+print(wisc.pr)
+```
+
+```{r}
+biplot(wisc.pr)
+```
+
+```{r}
+# Scatter plot observations by components 1 and 2
+plot(wisc.pr$x[,1], wisc.pr$x[,2], col = diagnosis, xlab = "PC1", ylab = "PC2")
+```
+
+```{r}
+plot(wisc.pr$x[,1], wisc.pr$x[,3], col = diagnosis, xlab = "PC1", ylab = "PC3")
+```
+
+
+
+
+```{r}
+pr.var = wisc.pr$sdev^2
+```
+```{r}
+print(pr.var)
+```
+
+```{r}
+pve <- pr.var/sum(pr.var)
+plot(pve, xlab = "Principal Component", 
+     ylab = "Proportion of Variance Explained", 
+     ylim = c(0, 1), type = "o")
+```
+
+```
+# Alternative scree plot of the same data, note data driven y-axis
+barplot(pve, ylab = "Precent of Variance Explained",
+     names.arg=paste0("PC",1:length(pve)), las=2, axes = FALSE)
+axis(2, at=pve, labels=round(pve,2)*100 )
+```
+
+```{r}
+## ggplot based graph
+#install.packages("factoextra")
+library(factoextra)
+fviz_eig(wisc.pr, addlabels = TRUE)
+```
+
+```{r}
+# Scale the wisc.data data: data.scaled
+data.scaled <- scale(wisc.data)
+```
+
+```{r}
+data.dist <- dist(data.scaled, method = "euclidean")
+```
+```{r}d
+wisc.hclust <- hclust(data.dist, method = "complete")
+```
+```{r}
+plot(wisc.hclust)
+abline(h=15, col="red", lty=2)
+```
+
+```{r}
+wisc.hclust.clusters <- cutree(wisc.hclust, k=4)
+table(wisc.hclust.clusters)
+```
+
+```{r}
+table(wisc.hclust.clusters, diagnosis)
+```
+
+```{r}
+wisc.pr.hclust <- hclust( dist(wisc.pr$x[,1:7]), method = "ward.D2")
+```
+
+```{r}
+plot(wisc.pr.hclust, col = diagnosis)
+```
+
+```{r}
+grps <- cutree(wisc.pr.hclust, k=2)
+table(grps)
+```
+
+```{r}
+table(grps, diagnosis)
+```
+
+```{r}
+plot(wisc.pr$x[,1], wisc.pr$x[,2], col = grps)
+```
+
+
+
+```{r}
+#url <- "new_samples.csv"
+url <- "https://tinyurl.com/new-samples-CSV"
+new <- read.csv(url)
+npc <- predict(wisc.pr, newdata=new)
+npc
+```
+
+```{r}
+plot(wisc.pr$x[,1:2], col=grps)
+points(npc[,1], npc[,2], col="blue", pch=16, cex=3)
+text(npc[,1], npc[,2], c(1,2), col="white")
+```
+

@@ -1,0 +1,11 @@
+genes <- read.table("bimm143_05_rstats/up_down_expression.txt", header = TRUE, sep="\t")
+
+palette()
+levels(genes$State)
+nrow(genes)
+ncol(genes)
+unique(genes$State)
+table(genes$State)
+palette(c("blue","grey","red"))
+par(mar=c(5.1,11.5,4.1,11.1))
+plot(genes$Condition1, genes$Condition2, col=genes$State, xlab = "Condition #1", ylab = "Condition #2", main = "Generic Title", xlim = (c(-5,15)), ylim = (c(-5,15)))

@@ -1,0 +1,43 @@
+---
+title: "Daniel Johnson HW#1 20190426"
+author: "Daniel Johnson"
+date: "4/26/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##This function will read a vector of pdb IDs and output a plot showing druggable targets
+
+#Step-1: Load bio3d
+
+```{r}
+library(bio3d)
+```
+
+#Step-2: Input a vector containing the pdb IDs for proteins you wish to plot (protein_list) 
+#In this case the pdb IDs for 3 proteins are: "4AKE","1AKE","1E4Y"
+
+```{r}
+protein_list <- c("4AKE","1AKE","1E4Y")
+```
+
+#Step-3: Creates the function "plot_kinase_druggable". This function will A:load and trim the pdb file, B:then plot the A chain by residue (x-axis) and b-factor (Y-axis), as well as add secondary structure element of the trimmed pdb file.
+
+```{r}
+plot_kinase_druggable <- function(x) {
+  trim_pdb_info <- trim.pdb(read.pdb(x), chain = "A", elety = "CA")
+     plotb3(trim_pdb_info $atom$b, 
+      sse = trim_pdb_info, 
+      typ = "l", ylab = "Bfactor", main = x)  
+}
+```
+
+#Step-4: Applies the plot_druggable_kinase function (plots the pdb information) to protein_list (Vector containin pdb IDs). Outputs a list of the plots. 
+
+```{r}
+lapply(protein_list, plot_kinase_druggable)
+```
+

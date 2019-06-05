@@ -1,0 +1,52 @@
+---
+title: "bggn213_class17"
+author: "dan"
+date: "5/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```{r}
+read.delim("mm-second.x.zebrafish.tsv")
+```
+
+```{r}
+b <- read.delim("mm-second.x.zebrafish.tsv",)
+colnames(b) <-  c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+```{r}
+## Asuming your blast results are stored in an object called 'b'
+plot(b$pident  * (b$qend - b$qstart), b$bitscore)
+```
+
+```{r}
+library(ggplot2)
+ggplot(b, aes(pident, bitscore)) + geom_point(alpha=0.1) 
+
+```
+
