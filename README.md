@@ -28,7 +28,7 @@ My class content includes:
 
 -Class 17: [**Biological network analysis**](Class17/class17_RMD.md)
 
--Class 18: [**Cacer Genomics**]()
+-Class 18: [**Cancer Genomics**]()
 
 -Midterm: [**Find a Gene Project**](MIDTERM/MIDTERM_RMD.md)
 
