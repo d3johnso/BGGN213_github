@@ -24,9 +24,11 @@ My class content includes:
 
 -Class 15: [**Genome annotation and the interpretation of gene lists**]()
 
--Class 16: [**Essential UNIX for bioinformatics**]()
+-Class 16: [**Essential UNIX for bioinformatics**](class16/class16_RMD_GIT.md)
 
--Class 17: [**Biological network analysis**]()
+-Class 17: [**Biological network analysis**](Class17/class17_RMD.md)
+
+-Class 18: [**Cacer Genomics**]()
 
 -Midterm: [**Find a Gene Project**]()
 
