@@ -1,4 +1,4 @@
-Untitled
+Midterm Find A Gene Project
 ================
 
 ## Q7 HEATMAP
