@@ -10,19 +10,19 @@ My class content includes:
 
 -Class 08: [**Introduction to machine learning for Bioinformatics 1**]()
 
--Class 09: [**Unsupervised learning mini-project**]()
+-Class 09: [**Unsupervised learning mini-project**](class_09/class09_rmd_git.md)
 
 -Class 10: [**Project: Find a gene assignment (Part 1)**]()
 
--Class 11: [**Structural Bioinformatics (Part 1)**]()
+-Class 11: [**Structural Bioinformatics (Part 1)**](Class_10/class11_rmd_git.md)
 
--Class 12: [**Bioinformatics in drug discovery and design**]()
+-Class 12: [**Bioinformatics in drug discovery and design**](Class12/class12_rmd_git.md)
 
 -Class 13: [**Genome informatics and high throughput sequencing (Part 1)**]()
 
--Class 14: [**Transcriptomics and the analysis of RNA-Seq data**]()
+-Class 14: [**Transcriptomics and the analysis of RNA-Seq data**](Class14/class14_rmd_git.md)
 
--Class 15: [**Genome annotation and the interpretation of gene lists**]()
+-Class 15: [**Genome annotation and the interpretation of gene lists**](class15/cLASS15_rmD.md)
 
 -Class 16: [**Essential UNIX for bioinformatics**](class16/class16_RMD_GIT.md)
 
@@ -30,5 +30,5 @@ My class content includes:
 
 -Class 18: [**Cacer Genomics**]()
 
--Midterm: [**Find a Gene Project**]()
+-Midterm: [**Find a Gene Project**](MIDTERM/MIDTERM_RMD.md)
 
