@@ -2,13 +2,13 @@ This is my coursework from BGGN213 Spring 2019.
 
 My class content includes: 
 
--Class 05: [**Data exploration and visualization in R**]()
+-Class 05: [**Data exploration and visualization in R**](class05/class05_rmd_git.md)
 
--Class 06: [**Why, when and how of writing your own R functions**]()
+-Class 06: [**Why, when and how of writing your own R functions**](Class_06_B/class06_rmd_git.md)
 
--Class 07: [**Bioinformatics R packages from CRAN and BioConductor**]()
+-Class 07: [**Bioinformatics R packages from CRAN and BioConductor**](class_07/class_07_rmd_git.md)
 
--Class 08: [**Introduction to machine learning for Bioinformatics 1**]()
+-Class 08: [**Introduction to machine learning for Bioinformatics 1**](class_08/class08_rmd_git.md)
 
 -Class 09: [**Unsupervised learning mini-project**](class_09/class09_rmd_git.md)
 
