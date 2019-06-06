@@ -1,0 +1,30 @@
+---
+title: "Class 16: Essential UNIX for bioinformatics"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+read.delim("mm-second.x.zebrafish.tsv")
+```
+
+```{r}
+b <- read.delim("mm-second.x.zebrafish.tsv",)
+colnames(b) <-  c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+```{r}
+## Asuming your blast results are stored in an object called 'b'
+plot(b$pident  * (b$qend - b$qstart), b$bitscore)
+```
+
+```{r}
+library(ggplot2)
+ggplot(b, aes(pident, bitscore)) + geom_point(alpha=0.1) 
+
+```
+

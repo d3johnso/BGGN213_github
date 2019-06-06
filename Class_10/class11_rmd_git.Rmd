@@ -1,0 +1,108 @@
+---
+title: "Class 11:  Structural Bioinformatics (Part 1)"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+read.csv("Data Export Summary.csv")
+```
+
+```{r}
+library("bio3d")
+
+```
+
+```{r}
+pdb <-read.pdb("1hsg")
+print(pdb)
+```
+
+```{r}
+head(pdb$atom)
+```
+
+```{r}
+atom.select(pdb, resno = 10)
+```
+
+```{r}
+atom.select(pdb, resno = 10, value = T)
+```
+
+
+
+
+```{r}
+#Selecting Protein only from 1HSG
+pdb <-read.pdb("1hsg")
+hsg_protein <- atom.select(pdb, "protein", value=TRUE)
+write.pdb(hsg_protein, file = "1hsg_protein.pdb")
+
+```
+```{r}
+lig <- atom.select(pdb, "ligand", value = T)
+lig
+write.pdb(lig, file = "1hsg_ligand.pdb")
+```
+
+```{r}
+# The 'devtools' package allows us to install development versions
+#install.packages("devtools")
+# Install the bio3d.view package from bitbucketdevtools::
+#devtools::install_bitbucket("Grantlab/bio3d-view")
+# Load the package
+library("bio3d")
+pdb <-read.pdb("1hsg")
+library("bio3d.view")
+#view the 3D structure
+view(pdb, "overview", col="sse")
+
+pdb <-read.pdb("1hsg")
+view(pdb, "overview", col="sse")
+
+```
+
+```{r}
+# Load the package
+library("bio3d.view")
+#view the 3D structure
+view(pdb, "overview", col="sse")
+```
+
+```{r}
+
+pdb <-read.pdb("1hsg")
+view(pdb, "overview", col="sse")
+```
+
+```{r}
+# Download some example PDB files
+ids <-c("1TND_B","1AGR_A","1TAG_A","1GG2_A","1KJY_A","4G5Q_A")
+files <-get.pdb(ids, split =TRUE)
+```
+
+```{r}
+# Extract and align the chains we are interested in
+pdbs <-pdbaln(files, fit =TRUE)
+# Print to screen a summary of the 'pdbs' object
+pdbs
+```
+
+```{r}
+view(pdbs)
+```
+```{r}
+pc.xray <- pca(pdbs)
+plot(pc.xray)
+
+```
+
+```{r}
+# Visualize first principal component
+pc1 <- mktrj(pc.xray, pc=1, file="pc_1.pdb")
+```
+

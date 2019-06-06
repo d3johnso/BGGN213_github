@@ -7,36 +7,12 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## GitHub Documents
-
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
-
-## Including Code
-
-You can include R code in the document as follows:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-
 ```{r}
-install.packages("BiocManager")
-BiocManager::install()
+#install.packages("BiocManager")
+#BiocManager::install()
 
 # For this class, you'll also need DESeq2:
-BiocManager::install("DESeq2")
+#BiocManager::install("DESeq2")
 ```
 
 ```{r}
@@ -76,7 +52,7 @@ plot(meancounts)
 
 
 ```{r}
-colSums()
+colSums(meancounts)
 ## control.mean treated.mean 
 ##     23005324     22196524
 ```
@@ -93,7 +69,7 @@ plot(control.mean,treated.mean, log="xy")
 Calculate log2 FC 
 
 ```{r}
-plot(log2fc)
+#plot(log2fc)
 ```
 ```{r}
 zero.vals <- which(meancounts[,1:2]==0, arr.ind=TRUE)

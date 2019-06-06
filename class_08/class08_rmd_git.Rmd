@@ -1,8 +1,6 @@
 ---
-title: 'Class_08: Machine Learning'
-author: "Daniel Johnson"
-date: "4/26/2019"
-output: html_document
+title: "Class 8: Introduction to machine learning for Bioinformatics (Part 1)"
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +31,6 @@ Plot x colored by the kmeans cluster assignment and
 ```{r}
 k <- kmeans(x,2,20)
 print(k)
-
 ```
 
 ```{r}
@@ -151,8 +148,6 @@ pca <- prcomp( t(mydata), scale=TRUE)
 summary(pca)
 ```
 
-
-
 ```{r}
 pca.var <- pca$sdev^2
 pca.var.per <- round(pca.var/sum(pca.var)*100, 1)
@@ -201,13 +196,3 @@ pairs(x, col=rainbow(10), pch=16)
 pca <- prcomp( t(x) )
 summary(pca)
 ```
-
-
-
-
-
-
-
-
-
-

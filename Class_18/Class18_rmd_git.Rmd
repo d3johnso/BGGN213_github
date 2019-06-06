@@ -1,0 +1,24 @@
+---
+title: "CLass 18: Cancer genomics"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Install packages if not already installed
+```{r}
+#source("https://bioconductor.org/biocLite.R")
+#biocLite(c("GenomicDataCommons", "TCGAbiolinks", "maftools"))
+```
+Once installed, load the packages, as usual.
+```{r}
+library(GenomicDataCommons)
+library(TCGAbiolinks)
+library(maftools)
+```
+Now lets check on GDC status:
+```{r}
+status()
+```
+
